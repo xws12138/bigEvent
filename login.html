@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <!-- 引入 layui 的css文件 -->
+    <link rel="stylesheet" href="./assets/lib/layui/css/layui.css">
+    <!-- 引入自己的css -->
+    <link rel="stylesheet" href="./assets/css/login.css">
+
+</head>
+
+<body>
+    <!-- 左上角的logo -->
+    <div class="logo">
+        <img src="./assets/images/logo.png" alt="">
+    </div>
+
+    <!-- 中间的表单内容 -->
+    <div class="content">
+        <!-- 表单标题 --------------------------------------------------------------------------------------->
+        <div class="title">
+            <img src="./assets/images/login_title.png" alt="">
+        </div>
+        <!-- 注册表单------------------------------------------------------------------------------------- -->
+        <!-- 表单主体 -->
+        <form class="layui-form reg-form" action="" style="display: none;">
+            <!-- 输入用户名 -->
+            <div class="layui-form-item">
+                <i class="layui-icon layui-icon-username"></i>
+                <div>
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 输入密码 -->
+            <div class="layui-form-item">
+                <i class="layui-icon layui-icon-password"></i>
+                <div>
+                    <input id="pass" type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 确认密码 -->
+            <div class="layui-form-item">
+                <i class="layui-icon layui-icon-password"></i>
+                <div>
+                    <input type="password" required lay-verify="required|samePass" placeholder="请再次确认密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 注册按钮 -->
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit lay-filter="formDemo">注册</button>
+            </div>
+
+            <!-- 登录链接 -->
+            <div class="link">
+                <a href="javascript:;">去登录</a>
+            </div>
+        </form>
+
+
+        <!-- 登录表单 --------------------------------------------------------------------------------------->
+        <!-- 表单主体 -->
+        <form class="layui-form login-form" action="">
+            <!-- 输入用户名 -->
+            <div class="layui-form-item">
+                <i class="layui-icon layui-icon-username"></i>
+                <div>
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 输入密码 -->
+            <div class="layui-form-item">
+                <i class="layui-icon layui-icon-password"></i>
+                <div>
+                    <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 登录按钮 -->
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit lay-filter="formDemo">登录</button>
+            </div>
+
+            <!-- 注册链接 -->
+            <div class="link">
+                <a href="javascript:;">去注册账号</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- 引入 axios.js 文件 -->
+    <script src="./assets/lib/axios.js"></script>
+    <!-- 引入 jquery 的js -->
+    <script src="./assets/lib/jquery.js"></script>
+    <!-- 引入 layui 的js 因为 layui的js 要引用jquery的js,所以要在jquery.js后面引入 -->
+    <script src="./assets/lib/layui/layui.all.js"></script>
+    <!-- 引入 全局的apijs文件 -->
+    <script src="./assets/js/commonAPI.js"></script>
+    <!-- 引入自己的js -->
+    <script src="./assets/js/login.js"></script>
+</body>
+
+</html>
