@@ -1,16 +1,20 @@
 $(function() {
-    // 从 layui 中提取 form 表单模块(解构赋值)
+    // 解构赋值 把一个对象里的属性名 和 左边对象中变量名一一对应，每一个属性会把自己的值赋值给左边对应上的变量名
+    // ps:(const 新建常量) 所以这里不是变量，而是常量
+    // 从 layui 对象  中提取 form 属性(表单模块) 和 layer 属性
+    // layer 属性可以直接用，不需要解构赋值，但是这里还是按照标准来走
     const { form, layer } = layui
 
 
     // 点击按钮进行表单切换
     $('.link a').click(function() {
-        $('.layui-form').toggle()
+        $('.layui-form').toggle() //toggle 就是 show 和 hide 的结合 可以让隐藏的显示，显示的隐藏
     })
 
 
 
     // 密码验证
+    // verify 是插件提供的密码验证的方法
     form.verify({
         pass: [
             /^\w{6,12}$/,
@@ -65,7 +69,7 @@ $(function() {
                 localStorage.setItem('token', res.token) //localStorage 永久存储到本地
                 layer.msg('登录成功！');
                 // 跳转到首页
-                location.href = './index测试.html'
+                location.href = './index.html'
             })
     })
 
