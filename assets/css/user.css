@@ -1,0 +1,16 @@
+/* 用户中心样式 */
+
+
+/* 带背景 */
+
+body {
+    background-color: #f2f3f7;
+    padding: 15px;
+}
+
+
+/* 给整个表单设置宽度 */
+
+.layui-form {
+    width: 500px;
+}

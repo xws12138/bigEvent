@@ -1,6 +1,6 @@
 // 为全局的 axios 请求设置根路径
 // 以后git post 都不需要拼接根路径了，只需要写类似 api/reguser 这样的网址具体路径即可
-axios.defaults.baseURL = 'http://ajax.frontend.itheima.net'
+axios.defaults.baseURL = 'http://api-breakingnews-web.itheima.net'
 
 
 // 添加全局的请求拦截器
