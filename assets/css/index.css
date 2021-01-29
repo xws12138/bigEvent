@@ -1,0 +1,102 @@
+/* 主体内容大盒子 */
+
+.layui-body {
+    overflow: hidden;
+}
+
+
+/* 指向外部页面的标签 */
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 给阿里和 layui 的字体图标设置外边距挤开右侧内容 */
+
+.iconfont,
+.layui-icon {
+    margin-right: 10px;
+}
+
+
+/* 给整体的下拉的子菜单 dd 设置边距 */
+
+.layui-side .layui-nav-child dd {
+    padding-left: 13px;
+}
+
+
+/* 右侧头像区域 */
+
+
+/* 个人中心 */
+
+.person-center {
+    margin-left: 10px;
+}
+
+
+/* 左侧头像区域 */
+
+
+/* 头像大盒子 */
+
+.user-info {
+    text-align: center;
+    height: 60px;
+    line-height: 60px !important;
+}
+
+
+/* 图片头像 */
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+
+/* 字体头像 */
+
+.text-avatar {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: #009688;
+}
+
+
+/* 昵称部分 */
+
+.nickname {
+    font-size: 12px;
+    margin-left: 14px;
+}
+
+
+/* 底部区域------------------------------------------------------- */
+
+
+/* 底部文字 */
+
+.layui-footer {
+    text-align: center;
+    font-size: 12px;
+}
