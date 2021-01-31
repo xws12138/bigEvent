@@ -38,14 +38,14 @@ $(function() {
             // 发送ajax请求 不用url根地址 直接拼接上表单的所有值 serialize()
         axios.post('/my/userinfo', $(this).serialize())
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 //校验失败
                 if (res.status !== 0) {
                     return layer.msg('修改信息失败！')
                 }
                 layer.msg('修改信息成功！');
                 // 如果成功 更新用户信息
-                // window.parent 可以获取到外层的dom元素对象
+                // window.parent 可以获取到外层的dom元素对象 传入渲染头像函数 getUserInfo()
                 window.parent.getUserInfo()
 
             })

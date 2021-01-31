@@ -41,6 +41,12 @@ $(function() {
                     // 然后再使用原生的 reset() 方法 重置表单
                 $('.layui-form')[0].reset()
 
+
+                //优化 修改密码成功之后，跳转回登录页
+                window.parent.location.href = '../login.html'
+
+                // 原先的 token 令牌要清除掉 否则跳转后还可以手动回来
+                localStorage.removeItem('token')
             })
     })
 

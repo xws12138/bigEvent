@@ -5,7 +5,7 @@ axios.defaults.baseURL = 'http://api-breakingnews-web.itheima.net'
 
 // 添加全局的请求拦截器
 axios.interceptors.request.use(function(config) {
-    console.log('请求前');
+    // console.log('请求前');
 
     // 获取本地存储的令牌  token
     const token = localStorage.getItem('token') || ''
@@ -31,7 +31,7 @@ axios.interceptors.request.use(function(config) {
 
 // 添加全局的响应拦截器
 axios.interceptors.response.use(function(response) {
-    console.log('响应前');
+    // console.log('响应前');
     // 从response.data中解构赋值出 message status 属性
     const { message, status } = response.data
         // 判断身份验证是否成功 如果失败，说明tolen是伪造的

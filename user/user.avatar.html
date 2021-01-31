@@ -48,20 +48,24 @@
                 <!-- accept 属性可以指定 允许用户选择什么类型的文件，多个要指定的类型用 ，隔开 ps:jpeg就是jpg-->
                 <input type="file" id="file" accept="image/png,image/jpeg" style="display: none;">
                 <button type="button" class="layui-btn" id="btnChooseImage">上传</button>
-                <button type="button" class="layui-btn layui-btn-danger">确定</button>
+                <button type="button" class="layui-btn layui-btn-danger" id="save-btn">确定</button>
             </div>
             <!-- 按照插件的要求的设置html结构---- 结束------------------------------------------->
         </div>
     </div>
+    <!-- 引入 axios.js 文件 -->
+    <script src="../assets/lib/axios.js"></script>
     <!-- 导入 layui 的 js  -->
     <script src="../assets/lib/layui/layui.all.js"></script>
     <!-- 按照插件要求的顺序导入 js 文件 -->
-    <!-- 导入 jq 的js  -->
+    <!-- 导入 jquery 的js  -->
     <script src="../assets/lib/jquery.js"></script>
-    <!-- 导入 Cropper.js 的 js  -->
+    <!-- 导入 Cropper 的 js  -->
     <script src="../assets/lib/cropper/Cropper.js"></script>
-    <!-- 导入 jquery-cropper 的js  -->
+    <!-- 导入 jquery 版本的 cropper.js ==> jquery-cropper.js  -->
     <script src="../assets/lib/cropper/jquery-cropper.js"></script>
+    <!-- 引入 全局的apijs文件 -->
+    <script src="../assets/js/commonAPI.js"></script>
     <!-- 导入说是自己的其实还是按照插件里头要求的写的js文件 -->
     <script src="../assets/js/user/user.avatar.js"></script>
 </body>
