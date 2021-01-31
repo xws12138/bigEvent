@@ -1,9 +1,13 @@
 // 修改密码
 $(function() {
-    // 1.对表单进行校验
+
     const { form, layer } = layui
 
+
+    // 1.对表单进行校验
+    // form.verify() 这个方法是表单默认的校验规则
     form.verify({
+        // 把这个 pass 添加到要校验的那个输入框的lay-verify="required"属性上 ==> lay-verify="required|pass"
         pass: [
             /^\w{6,12}$/,
             '密码必须6,12位，且不能出现空格'
@@ -20,7 +24,7 @@ $(function() {
         }
     })
 
-    // 2.表单提交
+    // 2.表单提交事件submit
     $('.layui-form').submit(function(e) {
         // 阻止默认跳转
         e.preventDefault();
