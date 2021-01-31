@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入 layui 的css  -->
+    <link rel="stylesheet" href="../assets/lib/layui/css/layui.css">
+    <!-- 引入 cropper插件的css  -->
+    <link rel="stylesheet" href="../assets/lib/cropper/cropper.css" />
+    <!-- 引入自己的css  -->
+    <link rel="stylesheet" href="../assets/css/user.avatar.css">
+</head>
+
+<body>
+    <!-- 卡片区 -->
+    <div class="layui-card">
+        <div class="layui-card-header">更换头像</div>
+        <div class="layui-card-body">
+            <!-- 按照插件的要求的设置html结构 ------------------------------------------->
+            <!-- 第一行的图片裁剪和预览区域 -->
+            <div class="row1">
+                <!-- 图片裁剪区域 -->
+                <div class="cropper-box">
+                    <!-- 这个 img 标签很重要，将来会把它初始化为裁剪区域 -->
+                    <img id="image" src="../assets/images/sample.jpg" />
+                </div>
+                <!-- 图片的预览区域 -->
+                <div class="preview-box">
+                    <div>
+                        <!-- 宽高为 100px 的预览区域 -->
+                        <div class="img-preview w100"></div>
+                        <p class="size">100 x 100</p>
+                    </div>
+                    <div>
+                        <!-- 宽高为 50px 的预览区域 -->
+                        <div class="img-preview w50"></div>
+                        <p class="size">50 x 50</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二行的按钮区域 -->
+            <div class="row2">
+                <!-- 为了点击上传按钮，可以打开本地的文件夹 所以要设置一个文件选择框 file -->
+                <!-- 然后把这个 file 框隐藏起来 通过点击上传按钮，来触发他即可 -->
+                <!-- accept 属性可以指定 允许用户选择什么类型的文件，多个要指定的类型用 ，隔开 ps:jpeg就是jpg-->
+                <input type="file" id="file" accept="image/png,image/jpeg" style="display: none;">
+                <button type="button" class="layui-btn" id="btnChooseImage">上传</button>
+                <button type="button" class="layui-btn layui-btn-danger">确定</button>
+            </div>
+            <!-- 按照插件的要求的设置html结构---- 结束------------------------------------------->
+        </div>
+    </div>
+    <!-- 导入 layui 的 js  -->
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <!-- 按照插件要求的顺序导入 js 文件 -->
+    <!-- 导入 jq 的js  -->
+    <script src="../assets/lib/jquery.js"></script>
+    <!-- 导入 Cropper.js 的 js  -->
+    <script src="../assets/lib/cropper/Cropper.js"></script>
+    <!-- 导入 jquery-cropper 的js  -->
+    <script src="../assets/lib/cropper/jquery-cropper.js"></script>
+    <!-- 导入说是自己的其实还是按照插件里头要求的写的js文件 -->
+    <script src="../assets/js/user/user.avatar.js"></script>
+</body>
+
+</html>
