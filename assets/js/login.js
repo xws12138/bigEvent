@@ -37,7 +37,7 @@ $(function() {
             .then(res => {
                 // 每一次获取返回数据的时候，我们需要的只是 data 然而res里面接收了一大堆数据,所以会造成数据不必要的负担(太多没必要的)
                 // 所以我们需要一个拦截器，只要 data 其他的都拦截掉
-                console.log(res); //res.data才是返回的真实数据 这里不写res.data是因为commonAPI.js里面设置了拦截器，拦截了响应前的数据，进行了处理
+                // console.log(res); //res.data才是返回的真实数据 这里不写res.data是因为commonAPI.js里面设置了拦截器，拦截了响应前的数据，进行了处理
                 // 所以现在res里面只有data
                 // 先判断获取数据是否失败
                 if (res.status !== 0) {

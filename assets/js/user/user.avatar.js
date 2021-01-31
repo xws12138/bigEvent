@@ -38,9 +38,8 @@ $(function() {
     $('#file').on('change', function(e) {
         // 使用文件框监听事件来获取用户选择的文件 files
         var filelist = e.target.files //这个 files 伪数组 0 号就是用户选择的文件
-        console.log(filelist);
-        // filelist 伪数组的 0 号索引可就是用户选择的文件
-        // 判断是否获取失败 也就是用户取消了选择，那么选择文件的伪数组的长度就为 0
+            // filelist 伪数组的 0 号索引可就是用户选择的文件
+            // 判断是否获取失败 也就是用户取消了选择，那么选择文件的伪数组的长度就为 0
         if (filelist.length === 0) { //如果伪数组长度为 0 说明没有选择文件
             return layer.msg('请选择照片！') //那就提示
         }
@@ -77,7 +76,6 @@ $(function() {
         search.append('avatar', dataUrl);
         // 5.3发送请求，把 bose64格式字符串提交到服务器
         axios.post('/my/update/avatar', search).then(res => {
-            console.log(res);
             // 5.4判断是否失败
             if (res.status != 0) {
                 // 失败提醒

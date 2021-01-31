@@ -1,0 +1,23 @@
+/* 文章模块样式 */
+
+
+/* 带背景 */
+
+body {
+    background-color: #f2f3f7;
+    padding: 15px;
+}
+
+
+/* 给整个表单设置宽度 */
+
+.add-btn {
+    float: right;
+    margin-top: 5px;
+}
+
+.layui-form {
+    margin-top: 5px;
+    padding-left: 25px;
+    padding-right: 30px;
+}

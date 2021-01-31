@@ -5,7 +5,6 @@ function getUserInfo() {
 
     // 发送ajax请求
     axios.get('/my/userinfo', ).then(res => {
-        console.log(res);
         // 校验请求失败
         if (res.status !== 0) {
             return layer.msg('获取用户信息失败！')

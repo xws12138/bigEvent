@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入 layui 的css -->
+    <link rel="stylesheet" href="../assets/lib/layui/css/layui.css">
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="../assets/css/article.css">
+</head>
+
+<body>
+    <!-- 卡片面板 -->
+    <div class="layui-card">
+        <div class="layui-card-header">文章类别管理
+            <!-- 添加类别按钮 -->
+            <button class=" add-btn layui-btn layui-btn-normal layui-btn-sm" type="button" class="layui-btn">添加类别</button>
+        </div>
+        <!-- 卡片 -->
+        <div class="layui-card-body">
+            <!-- 表格区域 -->
+            <table class="layui-table">
+                <!-- colgroup 表格的原生方法，是用来控制表格每一列的宽度 -->
+                <!-- 这里每一行里都有三列 -->
+                <colgroup>
+                    <!-- 第一列宽度40% -->
+                    <col width="40%">
+                    <!-- 第二列宽度40% -->
+                    <col width="40%">
+                    <!-- 第三列没有设置，所以一二列分剩下的都是第三列的 -->
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>分类名称</th>
+                        <th>分类别名</th>
+                        <th>操作</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- 添加表单容器  也就是要弹出的(添加类别)模态框里面的表单-------------------------------------------------------------------------------------------->
+    <div style="display: none;" class="add-form-container">
+        <!-- 表单区域  -->
+        <form class="layui-form add-form" action="">
+            <!-- 分类名称  -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类名称</label>
+                <div class="layui-input-block">
+                    <!-- name 名称 -->
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 分类别名  -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类别名</label>
+                <div class="layui-input-block">
+                    <!-- alias 别名 -->
+                    <input type="text" name="alias" required lay-verify="required" placeholder="请输入分类别名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 按钮 -->
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <!-- 确认添加  -->
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确认添加</button>
+                    <!-- 重置  -->
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 编辑表单容器  也就是要弹出的编辑(修改)模态框里面的表单------------------------------------------------------------------------------------------>
+    <div style="display: none;" class="edit-form-container">
+        <!-- 表单区域 给表单加入这个属性 lay-filter="edit-form 可以通过 js 获取到表单内容 (edit-form是自己取的名字)-->
+        <form class="layui-form edit-form" action="" lay-filter="edit-form">
+            <!-- 分类名称  -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类名称</label>
+                <div class="layui-input-block">
+                    <!-- name 名称 -->
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 分类别名  -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类别名</label>
+                <div class="layui-input-block">
+                    <!-- alias 别名 -->
+                    <input type="text" name="alias" required lay-verify="required" placeholder="请输入分类别名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 按钮 -->
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <!-- 确认修改  -->
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确认修改</button>
+                </div>
+            </div>
+
+            <!-- 自己构建的 id 隐藏域 (隐藏的文本框) -->
+            <input type="hidden" name="Id">
+
+        </form>
+
+    </div>
+    <!-- 删除表单容器  也就是要弹出的删除模态框里面的表单------------------------------------------------------------------------------------------>
+    <div style="display: none;" class="delete-form-container">
+        <h4 style="margin-left: 30px;">确定删除？</h4>
+        <!-- 这个鬼图标找不到，直接去原页面抠的 -->
+        <i class="layui-layer-ico layui-layer-ico3"></i>
+    </div>
+
+    <!--模板引擎 ---------------------------------------------------------------------------------------------------------------------- -->
+    <script type="text/html" id="tpl">
+        <!-- 遍历语法 {{each 遍历对象}}...{{/each}}-->
+        <!-- 条件语法 {{if 条件}}...{{/if}} -->
+        <!-- 遍历返回的 data 文章数组 有多少数组就会遍历出多少组html形式的 tr 结构 -->
+        {{each data}}
+        <tr>
+            <td>{{$value.name}}</td>
+            <td>{{$value.alias}}</td>
+            <td>
+                <!-- 给每一个编辑按钮设置一个自定义属性id  {{$value.Id}} 文档要求的方法-->
+                <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs edit-btn">编辑</button>
+                <!-- 给每一个删除按钮设置一个自定义属性id  {{$value.Id}} 文档要求的方法-->
+                <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs layui-btn-danger delete-btn">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+
+
+
+    <!-- 引入模板引擎 -->
+    <script src="../assets/lib/template-web.js"></script>
+    <!-- 引入 jquery 的js -->
+    <script src="../assets/lib/jquery.js"></script>
+    <!-- 引入 layui 的js 因为 layui的js 要引用jquery的js,所以要在jquery.js后面引入 -->
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <!-- 引入 axios.js 文件 -->
+    <script src="../assets/lib/axios.js"></script>
+    <!-- 引入 全局的公共请求设置的 js文件 -->
+    <script src="../assets/js/commonAPI.js"></script>
+    <!-- 引入自己的js -->
+    <script src="../assets/js/article/category.js"></script>
+</body>
+
+</html>

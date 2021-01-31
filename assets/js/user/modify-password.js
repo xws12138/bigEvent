@@ -13,8 +13,6 @@ $(function() {
             '密码必须6,12位，且不能出现空格'
         ],
         confirmPass: function(val) {
-
-            console.log($('#pass').val());
             //$('#pass').val() 是新密码
             //val 是确认新密码
             if (val !== $('#pass').val()) {
