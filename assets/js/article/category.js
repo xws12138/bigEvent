@@ -147,7 +147,7 @@ $(function() {
                 // console.log(layero);
                 // 6.3 发送请求，获取当前的分类数据 也就是当前id的编辑按钮所对应的内容(分类名称，分类别名)
                 axios.get(`/my/article/deletecate/${id}`).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     // 6.4删除失败
                     if (res.status !== 0) {
                         return layer.msg('删除失败!')
@@ -156,10 +156,7 @@ $(function() {
                     //6.5 删除成功提示
                     layer.msg('删除成功！！！');
 
-                    //6.6 删除成功，关闭弹出层 插件自带的关闭弹出层方法  layer.close(); index为全局变量，里面是整个弹出层
-                    layer.close(index);
-
-                    //6.7 删除成功，重新渲染一下页面 更新外层的分类表格数据
+                    //6.6 删除成功，重新渲染一下页面 更新外层的分类表格数据
                     getCateList();
 
                 })
