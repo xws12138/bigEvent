@@ -5,6 +5,38 @@ $(function() {
     // 提取组件
     const { form } = layui
 
+    // 接收列表页传来的查询参数
+    // console.log(location.search); // ?id=1729当前编辑按钮所对应的文章id的键值对字符串地址
+    // 获取查询参数中的 id 值
+    // 1.字符串截取
+    const arr = location.search.slice(1).split('=') //从索引1(从i开始)的位置开始截取得到的是 id=1729 再对 id=1729 进行等号分割 得到数组 [id,1729]
+    console.log(arr[1]); //取出数组的 索引2 也就是后面的数字 1729 (这个1729是编辑文章的文章索引，不是固定的，这里举例)
+    const id = arr[1] //取出数组的 索引2 也就是后面的数字 赋值给  id
+
+    // 发送请求到服务器，获取当前这条 id 的文章详情
+    function getArtDetail(id) { //接收参数
+        // 发送请求 把文章的自定义 id 传过去，告诉服务器我们要这个id对应的文章
+        axios.get(`/my/article/${id}`).then(res => {
+            console.log(res);
+            if (res.status !== 0) {
+                return layer.msg('获取失败!')
+            }
+
+
+            // 给 form 表单赋值数据   用 layui 提供的 form.val()方法，可以给整个 form  表单赋值
+            //要赋值的表单必须有  lay-filter="" 属性 名称自己取 edit-form ==>  lay-filter="edit-form"要赋的值为 服务器返回的 res 的 data对象
+            form.val('edit-form', res.data) //data对象里面就是要请求的文章的内容(标题，类别，内容，封面) 会依次填入相应的位置
+
+            //给form 表单赋值完成后 调用富文本编辑器的初始化方法 渲染出一个富文本编辑器(连同该文章的内容一起渲染出来) 这样就可以获取到该文章的内容
+            initEditor();
+
+            // 替换裁剪区的封面图片  根路径 拼上 图片的 地址res.data.cover_img
+            $image.cropper('replace', 'http://api-breakingnews-web.itheima.net' + res.data.cover_img)
+        })
+    }
+    getArtDetail(id) //调用函数，传入 id 这个 id 也就是 取出arr数组的 索引2 后面的数字
+
+    // -----------------------------------------------------
     // 1,从服务器获取文章分类数据
     getCateList()
 
@@ -27,15 +59,17 @@ $(function() {
 
             //坑： 动态创建的表单元素需要手动更新表单
             //插件提供的方法  可以单独指定渲染某一项
-            form.render(); //1.更新全部
-            //form.render(select) 2.只刷新 select 选择框的渲染
+            // form.render(); //1.更新全部
+            form.render('select') //2. 只刷新 select 选择框的渲染
+
+            // 1.6 在获取分类列表成功后，再去调用获取文章详情的函数
+            getArtDetail(id)
         })
 
     }
 
     // ------------------------------------
-    // 2.先调用富文本编辑器的初始化方法 渲染出一个富文本编辑器
-    initEditor();
+
     // ------------------------------------
 
     // 3.先获取要裁剪的图片
@@ -81,26 +115,29 @@ $(function() {
     $('.publish-form').submit(function(e) {
         e.preventDefault();
 
-        // 4.1 new FormData(原生表单元素) 用于获取表单中所有的内容(formdata格式)
-        const fd = new FormData(this);
-        // formdata 新增方法：oppend() set() get() forEach()
-
-        // 4.2 检测 formdata 中的数据项是否获取成功
-        fd.forEach(item => {
-            // console.log(item);
-        })
-
-
-        // 4.3 向 fd 中新增 state 数据
-        fd.append('state', state) // 'state' 是自定义属性 state 的值
-
-        // 4.4 获取裁剪封面图片的 二进制数据
+        // 4.1 获取裁剪封面图片的 二进制数据
         $image.cropper('getCroppedCanvas', {
             // 指定裁剪后图片的大小
             width: 400,
             htight: 280
         }).toBlob(blob => { //toBlo方法 获取二进制图片数据
             // console.log(blob); //二进制图片数据
+
+            // 坑 获取富文本编辑器中最新内容的操作，要放在异步回调函数中(也就是不一开始就获取，而是放在toBlob箭头函数中,变成函数执行是获取)，否则拿不到最新的内容
+            // 4.2 new FormData(原生表单元素) 用于获取表单中所有的内容(formdata格式)
+            const fd = new FormData(this);
+            // formdata 新增方法：oppend() set() get() forEach()
+
+            // 4.3 检测 formdata 中的数据项是否获取成功
+            fd.forEach(item => {
+                // console.log(item);
+            })
+
+
+            // 4.4 向 fd 中新增 state 数据
+            fd.append('state', state) // 'state' 是自定义属性 state 的值
+
+
             //4.5 把获取的图片数据 添加到 formdata 中
             fd.append('cover_img', blob)
 
@@ -123,18 +160,20 @@ $(function() {
 
     // 在外层封装好一个发布文章到服务器的函数，参数就是 组装好的 formdata 数据 fd 也就是 =>  const fd = new FormData(this);
     function publishArticle(fd) {
+        // 发送请求之前 向 formdata 数据中添加一条 id 数据(接口要求的)为了发送编辑(修改了内容)后，对应id的文章列表会随之修改
+        fd.append('Id', id) //为了告诉服务器，我们要修改的是那一条数据
 
         // 发送请求
-        axios.post('/my/article/add', fd).then(res => {
+        axios.post('/my/article/edit', fd).then(res => {
             // console.log(res);
             // 校验失败
             if (res.status !== 0) {
                 // 智能提醒，检测当前按钮的自定义属性值，如果值为 已发布，说明用户点击的是 发布文章按钮，那么就提醒发布文章失败，否则提醒存为草稿失败
-                return layer.msg(state == '已发布' ? '发布文章失败!' : '存为草稿失败！')
+                return layer.msg(state == '已发布' ? '编辑文章失败!' : '存为草稿失败！')
             }
             // 如果成功
             // 智能提醒，检测当前按钮的自定义属性值，如果值为 已发布，说明用户点击的是 发布文章按钮，那么就提醒发布文章成功，否则提醒存为草稿成功
-            layer.msg(state == '已发布' ? '发布文章成功!' : '存为草稿成功！')
+            layer.msg(state == '已发布' ? '编辑文章成功!' : '存为草稿成功！')
 
             // 发表或者存为草稿成功并跳转到文章列表页面
             location.href = './list.html'

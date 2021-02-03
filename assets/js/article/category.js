@@ -136,27 +136,30 @@ $(function() {
     // 6.1 点击删除,弹出删除模态框
     $(document).on('click', '.delete-btn', function(e) {
         const id = $(this).data('id');
-        // 查文档，找到询问类型的弹出层
-        layer.confirm('确认删除?', { icon: 3, title: '提示' }, function(index) { //这个函数就是确认按钮的回调函数，点击确认，会执行里面的命令
-            // 点击确认按钮 发送请求到服务器,
-            axios.get(`/my/article/deletecate/${id}`).then(res => {
-                // console.log(res);
-                // 删除失败
-                if (res.status !== 0) {
-                    return layer.msg('删除失败!')
-                }
+        layer.open({
+            title: '提示',
+            content: $('.delete-form-container').html(), //html()表示把所有的 html 标签结构添加进去 text()表示纯文本内容
+            btn: ['确定', '取消'],
+            // 按钮1 的回调函数 也就是点击了 按钮1(确定) 之后会触发的函数
+            yes: function(index, layero) {
+                // console.log(index);
+                // console.log(layero);
+                // 6.3 发送请求，获取当前的分类数据 也就是当前id的编辑按钮所对应的内容(分类名称，分类别名)
+                axios.get(`/my/article/deletecate/${id}`).then(res => {
+                    // console.log(res);
+                    // 6.4删除失败
+                    if (res.status !== 0) {
+                        return layer.msg('删除失败!')
+                    }
 
-                //删除成功提示
-                layer.msg('删除成功！！！');
+                    //6.5 删除成功提示
+                    layer.msg('删除成功！！！');
 
-                //删除成功，关闭弹出层 插件自带的关闭弹出层方法  layer.close(); index为全局变量，里面是整个弹出层
-                layer.close(index);
+                    //6.6 删除成功，重新渲染一下页面 更新外层的分类表格数据
+                    getCateList();
 
-                //删除成功，重新渲染一下页面 更新外层的分类表格数据
-                getCateList();
-
-            })
-
+                })
+            }
         });
 
 

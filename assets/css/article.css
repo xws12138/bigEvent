@@ -16,7 +16,8 @@ body {
     margin-top: 5px;
 }
 
-.layui-form {
+.add-form,
+.edit-form {
     margin-top: 5px;
     padding-left: 25px;
     padding-right: 30px;
@@ -64,4 +65,11 @@ body {
     background-color: #ccc;
     margin-bottom: 20px;
     overflow: hidden;
+}
+
+
+/* 文章列表的样式 */
+
+.list-table {
+    margin-top: 15px !important;
 }

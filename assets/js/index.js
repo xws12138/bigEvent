@@ -40,11 +40,23 @@ $(function() {
 
     // 2.点击退出
     $('#logout').click(function() {
-        // 请求接口(模拟)
-        // 1.清除 token 令牌
-        localStorage.removeItem('token')
+        // 点击退出的时候弹出一个询问框
+        layer.confirm('确认退出?', { icon: 3, title: '提示' }, function(index) {
+            // 请求接口(模拟)
+            // 1.清除 token 令牌
+            localStorage.removeItem('token')
 
-        // 2.跳转到登录页
-        location.href = './login.html'
+            // 2.跳转到登录页
+            location.href = './login.html'
+
+
+            // 文档自带的,先留着
+            //do something
+            layer.close(index);
+        });
+
+
+
+
     })
 })
