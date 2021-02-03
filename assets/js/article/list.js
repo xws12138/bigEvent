@@ -22,10 +22,12 @@ $(function() {
             })
 
 
+
             //坑： 动态创建的表单元素需要手动更新表单
             //插件提供的方法  可以单独指定渲染某一项
             form.render(); //1.更新全部
             //form.render(select) 2.只刷新 select 选择框的渲染
+
         })
 
     }
@@ -37,8 +39,11 @@ $(function() {
         pagenum: 1, //表示当前的页码值，第几页
         pagesize: 2, //表示每页显示的数据条数
         cate_id: '', //文章分类的 Id
+        pub_date: '', //文章发表的时间  
         state: '' //文章的状态，可选值有：已发布、草稿
     }
+
+
 
 
     // 3.先调用一次函数
@@ -51,6 +56,18 @@ $(function() {
             if (res.status !== 0) {
                 return layer.msg('获取失败!')
             }
+
+            // 调用模板函数之前去注册过滤器
+
+            var time = query.pub_date
+
+            // 注册一个过滤器
+            // 先去注册过滤器(也就是一个函数方法) 固定写法
+            template.defaults.imports.dateFormat = function(date) {
+                // 返回插件 对  pub_date  里面的时间的格式进行优化处理，然后返回，在模板里使用 | 调用即可
+                return moment(date).format('YYYY/MM/DD HH:mm:ss')
+            }
+
             // 3.2使用模板引擎来渲染
             const htmlStr = template('tpl', res);
             // console.log(htmlStr);
@@ -116,8 +133,10 @@ $(function() {
         query.cate_id = cate_id
         query.state = state
 
+        //优化 在点击筛选按钮发送请求之前去修改页码值为第一页
+        query.pagenum = 1
 
-        // 重新调用一下请求数据渲染表格的函数  renderTable 函数 
+        //5.3重新调用一下请求数据渲染表格的函数  renderTable 函数 
         renderTable();
     })
 
@@ -152,6 +171,22 @@ $(function() {
 
             })
         });
+    })
+
+    // 7. 点击编辑按钮，去跳转到编辑文章页面，编辑文章
+    $(document).on('click', '.edit-btn', function() {
+
+        // 获取当前文章 id 
+        const id = $(this).data('id');
+        // 如何在两个页面之间进行数据传递：使用查询参数 ?name=tom&age=10
+        //把当前编辑的文章id以查询参数的方式传入 edit.html页面(编辑页面)的地址后面 (键值对字符串)
+        location.href = `./edit.html?id=${id}`
+
+
+        // 点击编辑按钮的时候
+        // 同时左边的高亮绿色导航条要同时进行更新
+        // 外部元素的 layui-this(文章列表按钮) 的相邻的后一个元素 prev()(也就是发表文章) 里面的 a 链接自动触发点击事件(利用这个方式使其高亮)
+        window.parent.$('.layui-this').next().find('a').click()
     })
 
 

@@ -41,44 +41,41 @@
                         <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
                     </div>
                 </div>
+                <!-- 表格区域 -->
+                <table class="layui-table list-table">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="20%">
+                        <col width="25%">
+                        <col width="10%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>文章标题</th>
+                            <th>分类</th>
+                            <th>发表时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <!-- 分页区域 -->
+                <div id="pagination"></div>
         </div>
-        </form>
-
-        <!-- 表格区域 -->
-        <table class="layui-table list-table">
-            <colgroup>
-                <col width="30%">
-                <col width="20%">
-                <col width="25%">
-                <col width="10%">
-                <col>
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>文章标题</th>
-                    <th>分类</th>
-                    <th>发表时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-
-        <!-- 分页区域 -->
-        <div id="pagination"></div>
     </div>
-
-
+    </form>
     <!-- 定义一个模板 -->
     <script type="text/html" id="tpl">
         {{each data}}
         <tr>
             <td>{{$value.title}}</td>
             <td>{{$value.cate_name}}</td>
-            <td>{{$value.pub_date}}</td>
+            <!-- 要在模板里面使用函数：过滤器 竖杠后面 dateFormat 就是一个过滤器函数，前面的 pub_date 相当于参数，可以对 pub_date 数据进行处理(优化时间格式)-->
+            <td>{{$value.pub_date | dateFormat}}</td>
             <td>{{$value.state}}</td>
             <td>
                 <!-- 给每一个编辑按钮设置一个自定义属性id  {{$value.Id}} 文档要求的方法-->
@@ -89,7 +86,8 @@
         </tr>
         {{/each}}
     </script>
-
+    <!-- 引入时间插件 -->
+    <script src="../assets/lib/moment.js"></script>
     <!-- 引入模板引擎 -->
     <script src="../assets/lib/template-web.js"></script>
     <!-- 引入 jquery 的js -->
