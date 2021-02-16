@@ -9,7 +9,7 @@ body {
 
 body {
     background: url(../images/login_bg.jpg) no-repeat;
-    /* cover 覆盖整个容器，但是会出现拉伸 */
+    /* cover 覆盖整 个容器，但是会出现拉伸 */
     background-size: cover;
 }
 

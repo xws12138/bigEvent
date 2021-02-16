@@ -14,7 +14,7 @@ $(function() {
 
 
     // 密码验证
-    // verify 是插件提供的密码验证的方法
+    // verify 是插件提 供的密码验证的方法
     form.verify({
         pass: [
             /^\w{6,12}$/,
